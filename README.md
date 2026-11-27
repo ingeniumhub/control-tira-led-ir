@@ -28,7 +28,7 @@ El mando tiene 24 botones: encendido, apagado, brillo, 16 colores y 4 efectos. E
 
 ![Mando y códigos](img/mando.png)
 
-Los códigos de la tabla son los del mando de 24 botones más común (dirección `0x00F7`). Si tu mando usa otros, se leen con un receptor IR y se cambian en la tabla `COMMANDS`.
+Los códigos de la tabla son los del mando de 24 botones más común (dirección `0x00F7`). Si el mando usa otros, se leen con un receptor IR y se cambian en la tabla `COMMANDS`.
 
 ## El código
 
@@ -48,10 +48,10 @@ Todo está en [`control_tira_led_ir/control_tira_led_ir.ino`](control_tira_led_i
 Ejemplos:
 
 ```sh
-curl -H "Authorization: Bearer TU_TOKEN" http://tira-led.local/api/v1/status
+curl -H "Authorization: Bearer TOKEN" http://tira-led.local/api/v1/status
 
-curl -X POST -H "Authorization: Bearer TU_TOKEN" -d "command=on"  http://tira-led.local/api/v1/command
-curl -X POST -H "Authorization: Bearer TU_TOKEN" -d "command=red" http://tira-led.local/api/v1/command
+curl -X POST -H "Authorization: Bearer TOKEN" -d "command=on"  http://tira-led.local/api/v1/command
+curl -X POST -H "Authorization: Bearer TOKEN" -d "command=red" http://tira-led.local/api/v1/command
 ```
 
 Respuestas posibles de `/api/v1/command`:
@@ -65,16 +65,16 @@ Respuestas posibles de `/api/v1/command`:
 
 ## Montaje y carga
 
-1. En Arduino IDE, instala el soporte para placas ESP32 y la biblioteca **IRremoteESP8266**.
-2. Abre el `.ino` y cambia `WIFI_SSID`, `WIFI_PASS` y `API_TOKEN`. Si tu LED IR está en otro pin, cambia también `IR_PIN`.
-3. Carga el programa. En el monitor serie (115200 baudios) aparece la IP que le dio el router.
-4. Coloca el ESP32 con el LED apuntando al receptor del controlador, con línea de vista.
+1. En Arduino IDE, instalar el soporte para placas ESP32 y la biblioteca **IRremoteESP8266**.
+2. Abrir el `.ino` y cambiar `WIFI_SSID`, `WIFI_PASS` y `API_TOKEN`. Si el LED IR está en otro pin, cambiar también `IR_PIN`.
+3. Cargar el programa. En el monitor serie (115200 baudios) aparece la IP que le dio el router.
+4. Colocar el ESP32 con el LED apuntando al receptor del controlador, con línea de vista.
 
-Si usas un LED IR suelto en vez de uno integrado, conéctalo con un transistor y una resistencia: un pin del ESP32 no da corriente suficiente para un buen alcance.
+Con un LED IR suelto en vez de uno integrado, se conecta con un transistor y una resistencia: un pin del ESP32 no da corriente suficiente para un buen alcance.
 
-## Lo que usamos nosotros
+## Hardware utilizado
 
-- **M5Stack ATOM S3 Lite:** un ESP32‑S3 que ya trae el LED infrarrojo en el GPIO 4, así que no hizo falta soldar nada.
+- **M5Stack ATOM S3 Lite:** un ESP32‑S3 que ya trae el LED infrarrojo en el GPIO 4, por lo que no requiere soldadura.
 - **Tira LED RGB** con su controlador IR y mando de 24 botones.
 - **Alimentación:** el ATOM por USB‑C y la tira con su propia fuente.
 - **Control:** peticiones HTTP desde la red local.
